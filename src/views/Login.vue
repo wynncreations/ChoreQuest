@@ -1,14 +1,33 @@
 <template>
   <div>
-    Login page
+    <form @submit.prevent="login">
+      <label for='username'>Email:<input type='email' id='username' v-model="username"></label>
+      <label for='password'>Password:<input type="password" id="password" v-model="password"></label>
+      <button>Login</button>
+    </form>  
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Login',
-  props: {
-    msg: String
+  data: function(){
+    return {  
+      username: '',
+      password: ''
+    };
+  },
+  methods:{
+    login: function(){
+      let email = this.username;
+      let password = this.password;
+      this.$store
+      .dispatch("login",{email,password})
+      .then(()=>this.$router.push('/'))
+      .catch();
+    },
+    check: function(){
+      alert(this.username + this.password);
+    }
   }
 }
 </script>
